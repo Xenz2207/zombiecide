@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { attack, createGame, discardWeapon, driveRide, driveVehicle, endActivation, equipmentReference, mapThemes, missions, moveSurvivor, openDoor, runZombiePhase, searchZone, takeObjective, tradeWeapon, useItem } from "./game";
+import { attack, closedDoorExits, createGame, discardWeapon, driveRide, driveVehicle, endActivation, equipmentReference, mapThemes, missions, moveSurvivor, openDoor, runZombiePhase, searchZone, takeObjective, tradeWeapon, useItem } from "./game";
 
 describe("game engine", () => {
   it("charges an extra action per zombie when leaving a zone", () => {
@@ -18,6 +18,19 @@ describe("game engine", () => {
     const moved = moveSurvivor(opened, "f");
     expect(moved.survivors[0].zoneId).toBe("f");
     expect(moved.survivors[0].actions).toBe(1);
+  });
+
+  it("keeps closed doors discoverable until they are opened", () => {
+    const game = createGame(1);
+    game.survivors[0].zoneId = "h";
+
+    expect(closedDoorExits(game, "b")).toEqual(["f"]);
+    expect(closedDoorExits(game, "f")).toEqual(["b"]);
+
+    game.survivors[0].zoneId = "b";
+    const opened = openDoor(game, "f");
+    expect(closedDoorExits(opened, "b")).toEqual([]);
+    expect(closedDoorExits(opened, "f")).toEqual([]);
   });
 
   it("allows only one search per activation", () => {

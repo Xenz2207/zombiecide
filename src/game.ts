@@ -296,6 +296,11 @@ export function isDoorClosed(state: GameState, from: string, to: string): boolea
   return doorEdges.includes(edge) && !state.openedDoors.includes(edge);
 }
 
+export function closedDoorExits(state: GameState, zoneId: string): string[] {
+  const zone = state.zones.find((item) => item.id === zoneId);
+  return zone?.exits.filter((exit) => isDoorClosed(state, zoneId, exit)) ?? [];
+}
+
 export function moveSurvivor(source: GameState, destination: string): GameState {
   const state = clone(source);
   if (state.phase !== "player") return state;

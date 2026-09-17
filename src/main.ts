@@ -4,6 +4,7 @@ import {
   attack,
   adrenalineTiers,
   availableAttackZones,
+  closedDoorExits,
   createGame,
   discardWeapon,
   driveRide,
@@ -111,7 +112,8 @@ function render(): void {
             const survivors = game.survivors.filter((survivor) => survivor.zoneId === zone.id && survivor.health > 0);
             const zombies = game.zombies.filter((zombie) => zombie.zoneId === zone.id);
             const canMove = canAct && currentZone.exits.includes(zone.id) && !isDoorClosed(game, currentZone.id, zone.id);
-            const closedDoor = canAct && currentZone.exits.includes(zone.id) && isDoorClosed(game, currentZone.id, zone.id);
+            const visibleClosedDoors = closedDoorExits(game, zone.id);
+            const canOpenDoor = canAct && currentZone.exits.includes(zone.id) && isDoorClosed(game, currentZone.id, zone.id);
             const canAttack = canAct && attackZones.includes(zone.id);
             const canDrive = canAct && game.vehicleZoneId === hero.zoneId && currentZone.exits.includes(zone.id) && !isDoorClosed(game, currentZone.id, zone.id);
             const rideHere = game.rides.find((ride) => ride.zoneId === hero.zoneId);
@@ -126,6 +128,7 @@ function render(): void {
                   ${zone.extraction ? '<b class="exit-label">EXIT</b>' : ""}
                 </div>
                 <h2>${zone.name}</h2>
+                ${visibleClosedDoors.length ? `<div class="door-indicators">${visibleClosedDoors.map((exit) => `<span class="door-indicator" title="ประตูระหว่างโซน ${zone.id.toUpperCase()} และ ${exit.toUpperCase()}">🚪 ประตูปิด → ${exit.toUpperCase()}</span>`).join("")}</div>` : ""}
                 <div class="tokens">
                   ${zone.objective && !game.objectives.includes(zone.id) ? '<span class="objective" title="เสบียง">✦</span>' : ""}
                   ${survivors.map((survivor) => `<span class="survivor-token ${survivor.id === hero.id ? "selected" : ""}" style="--portrait-x:${(survivor.portraitIndex % 3) * 50}%;--portrait-y:${Math.floor(survivor.portraitIndex / 3) * 100}%" title="${survivor.name}"><small>${survivor.health}</small></span>`).join("")}
@@ -135,7 +138,7 @@ function render(): void {
                   ${(game.noise[zone.id] ?? 0) > 0 ? `<span class="noise-token">◖ ${game.noise[zone.id]}</span>` : ""}
                 </div>
                 ${canMove ? '<span class="zone-hint">เดินมาที่นี่</span>' : ""}
-                ${closedDoor ? '<button class="door-button" data-open-door="' + zone.id + '">เปิดประตู</button>' : ""}
+                ${canOpenDoor ? '<button class="door-button" data-open-door="' + zone.id + '">เปิดประตู</button>' : ""}
                 ${canAttack ? '<button class="attack-button" data-attack-zone="' + zone.id + '">โจมตี</button>' : ""}
                 ${canDrive ? '<button class="vehicle-button" data-drive-zone="' + zone.id + '">ขับรถมาที่นี่</button>' : ""}
                 ${canRide && rideHere ? `<button class="vehicle-button ride-button" data-ride-zone="${zone.id}" data-ride-id="${rideHere.id}">ใช้${rideHere.name}</button>` : ""}

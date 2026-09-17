@@ -65,6 +65,8 @@ button:focus-visible { outline: 2px solid var(--acid); outline-offset: 2px; }
 .spawn-label, .exit-label { margin-left: auto; padding: 2px 5px; color: #ff9278; background: #7b251b; font-size: 8px; letter-spacing: 1px; }
 .exit-label { color: #d8f36c; background: #3c4b19; }
 .zone h2 { position: relative; z-index: 1; margin: 4px 0 10px; color: #c7ccc5; font-size: 13px; font-weight: 600; }
+.door-indicators { position: relative; z-index: 2; display: flex; flex-wrap: wrap; gap: 4px; margin: -4px 0 8px; }
+.door-indicator { padding: 3px 6px; color: #ffc67f; border: 1px solid #9b5d2d; border-radius: 3px; background: #452914e8; font: 700 9px Oswald; letter-spacing: .3px; }
 .tokens { position: relative; z-index: 2; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .survivor-token, .zombie-token, .objective { position: relative; width: 68px; height: 68px; display: grid; place-items: center; border-radius: 50%; font: 700 14px Oswald; box-shadow: 0 4px 7px #0008; }
 .survivor-token { background-image: url('/assets/survivors-grid.png'); background-size: 300% 200%; background-position: var(--portrait-x) var(--portrait-y); color: #1e2418; border: 3px solid #a9c13e; }
