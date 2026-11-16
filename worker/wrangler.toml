@@ -9,6 +9,5 @@ database_name = "dead-zone-db"
 database_id = "77a25a17-12f0-49c8-b81d-7444b0d66042"
 
 [vars]
-# Set to your deployed site origin (e.g. https://your-game.pages.dev) to restrict CORS. "*" is fine for testing:
-# auth uses a Bearer token (no cookies), so cross-site requests cannot ride on a logged-in browser session.
-ALLOWED_ORIGIN = "*"
+# Comma-separated list of origins allowed to call this API (production site + local dev).
+ALLOWED_ORIGIN = "https://zombiecide.vercel.app,https://zombiecide-saza31255za-1347.vercel.app,http://localhost:5173,http://127.0.0.1:5173"

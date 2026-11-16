@@ -179,8 +179,12 @@ async function handle(request: Request, env: Env, path: string): Promise<unknown
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
+    // ALLOWED_ORIGIN is a comma-separated allow-list (or "*"). Echo back the request origin only if it is listed.
+    const allowed = (env.ALLOWED_ORIGIN ?? "*").split(",").map((item) => item.trim());
+    const origin = request.headers.get("origin") ?? "";
     const cors = {
-      "access-control-allow-origin": env.ALLOWED_ORIGIN ?? "*",
+      "access-control-allow-origin": allowed.includes("*") ? "*" : allowed.includes(origin) ? origin : allowed[0],
+      vary: "origin",
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-allow-headers": "content-type, authorization",
       "access-control-max-age": "86400",
