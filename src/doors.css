@@ -1,0 +1,20 @@
+/* ===== Doors drawn on room borders ===== */
+.door-marker { grid-row: var(--row); grid-column: var(--col); position: relative; z-index: 6; display: grid; place-items: center; padding: 0; color: #fff; border: 2px solid var(--door); border-radius: 4px; font: inherit; cursor: default; }
+.door-marker.v { justify-self: end; align-self: center; width: 20px; height: 84px; transform: translateX(calc(50% + 3px)); }
+.door-marker.h { justify-self: center; align-self: end; width: 84px; height: 20px; transform: translateY(calc(50% + 3px)); }
+.door-marker.closed { background: repeating-linear-gradient(45deg, #1a1511 0 6px, color-mix(in srgb, var(--door) 70%, #000) 6px 12px); box-shadow: 0 0 0 2px #000a, 0 0 14px color-mix(in srgb, var(--door) 60%, transparent); }
+.door-marker.open { background: #0b0e0b99; border-style: dashed; opacity: .75; box-shadow: none; }
+.door-icon { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--door); background: #14100d; font-size: 13px; line-height: 1; box-shadow: 0 2px 6px #000b; }
+.door-marker.open .door-icon { background: #12200f; }
+.door-marker.ready { cursor: pointer; animation: door-ready 1.1s ease-in-out var(--clock, 0s) infinite; }
+.door-marker.ready:hover { filter: brightness(1.3); }
+@keyframes door-ready { 50% { box-shadow: 0 0 0 2px #000a, 0 0 0 7px color-mix(in srgb, var(--door) 45%, transparent), 0 0 22px var(--door); } }
+
+.door-indicator { color: var(--door, #ffc67f); border-color: var(--door, #9b5d2d); background: #14100de8; font-size: 10px; }
+.dot.door-closed { background: repeating-linear-gradient(45deg, #1a1511 0 2px, #ffb347 2px 4px); border-radius: 2px; }
+.dot.door-open { background: transparent; border: 1px dashed #aab0a9; border-radius: 2px; }
+
+@media (max-width: 640px) {
+  .door-marker.v { width: 16px; height: 62px; } .door-marker.h { width: 62px; height: 16px; }
+  .door-icon { width: 20px; height: 20px; font-size: 10px; }
+}

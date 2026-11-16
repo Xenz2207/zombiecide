@@ -209,3 +209,32 @@ describe("game engine", () => {
     expect(result.survivors[0].actions).toBe(3);
   });
 });
+
+import { grantWeapon } from "./game";
+import { clearReward, validateCredentials } from "./shared";
+import { shopPrices } from "./shop";
+
+describe("shop and rewards", () => {
+  it("grants a purchased weapon without spending an action, and respects the 5-item limit", () => {
+    const game = createGame(1);
+    const hero = game.survivors[0];
+    const actions = hero.actions;
+    const bought = grantWeapon(game, "katana");
+    expect(bought.survivors[0].inventory.some((item) => item.id === "katana")).toBe(true);
+    expect(bought.survivors[0].actions).toBe(actions);
+    hero.inventory = Array(5).fill(hero.inventory[0]);
+    expect(grantWeapon(game, "katana").survivors[0].inventory).toHaveLength(5);
+  });
+
+  it("prices only items that exist in the catalog", () => {
+    const ids = new Set(equipmentReference.map((item) => item.id));
+    Object.keys(shopPrices).forEach((id) => expect(ids.has(id)).toBe(true));
+  });
+
+  it("pays more for a first clear than a replay and validates credentials", () => {
+    expect(clearReward(3, 5, true)).toBeGreaterThan(clearReward(3, 5, false));
+    expect(validateCredentials("ab", "secret1")).not.toBeNull();
+    expect(validateCredentials("tester", "123")).not.toBeNull();
+    expect(validateCredentials("tester", "secret1")).toBeNull();
+  });
+});

@@ -1,0 +1,14 @@
+name = "dead-zone-api"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+
+# Run `npx wrangler d1 create dead-zone-db` and paste the returned database_id below.
+[[d1_databases]]
+binding = "DB"
+database_name = "dead-zone-db"
+database_id = "77a25a17-12f0-49c8-b81d-7444b0d66042"
+
+[vars]
+# Set to your deployed site origin (e.g. https://your-game.pages.dev) to restrict CORS. "*" is fine for testing:
+# auth uses a Bearer token (no cookies), so cross-site requests cannot ride on a logged-in browser session.
+ALLOWED_ORIGIN = "*"

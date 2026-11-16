@@ -296,6 +296,16 @@ export function isDoorClosed(state: GameState, from: string, to: string): boolea
   return doorEdges.includes(edge) && !state.openedDoors.includes(edge);
 }
 
+/** Every door on the current map with its open/closed state (used to draw doors on the board). */
+export function doorConnections(state: GameState): { a: string; b: string; open: boolean }[] {
+  return doorEdges
+    .map((edge) => {
+      const [a, b] = edge.split(":");
+      return { a, b, open: state.openedDoors.includes(edge) };
+    })
+    .filter((door) => state.zones.some((zone) => zone.id === door.a) && state.zones.some((zone) => zone.id === door.b));
+}
+
 export function closedDoorExits(state: GameState, zoneId: string): string[] {
   const zone = state.zones.find((item) => item.id === zoneId);
   return zone?.exits.filter((exit) => isDoorClosed(state, zoneId, exit)) ?? [];
@@ -461,6 +471,17 @@ export function discardWeapon(source: GameState, weaponId: string): GameState {
   if (state.phase !== "player" || weaponIndex < 0) return state;
   const [weapon] = hero.inventory.splice(weaponIndex, 1);
   addLog(state, `${hero.name} ทิ้ง ${weapon.name}`);
+  return state;
+}
+
+/** Shop purchase: gives the active survivor a catalog item for free (no action cost). */
+export function grantWeapon(source: GameState, weaponId: string): GameState {
+  const state = clone(source);
+  const hero = active(state);
+  const weapon = equipmentReference.find((item) => item.id === weaponId);
+  if (state.phase !== "player" || hero.done || !weapon || hero.inventory.length >= 5) return state;
+  hero.inventory.push(structuredClone(weapon));
+  addLog(state, `${hero.name} ซื้อ${weapon.name} จากร้านค้า`);
   return state;
 }
 

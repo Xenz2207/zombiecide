@@ -1,0 +1,153 @@
+/* ===== UI polish: readability, hierarchy, press feedback =====
+   Loaded last so it refines the base styles. Minimum body text ≈ 12px, key numbers 15px+. */
+
+:root {
+  --text: #eef1e8;
+  --text-dim: #aab3a6;
+  --text-faint: #8a9487;
+  --card: #1f241f;
+  --card-2: #272d27;
+  --edge: #3f473f;
+  --radius: 6px;
+  --ease-press: cubic-bezier(.3, 1.6, .5, 1);
+}
+body { color: var(--text); font-size: 15px; line-height: 1.5; }
+
+/* ---------- global press / hover feedback ---------- */
+button, .zone.can-move { -webkit-tap-highlight-color: transparent; }
+button { transition: transform .14s var(--ease-press), filter .15s, box-shadow .2s, background-color .2s, border-color .2s, opacity .2s; }
+button:not(:disabled):hover { filter: brightness(1.12); }
+button:not(:disabled):active { transform: translateY(1px) scale(.95); filter: brightness(.9); transition-duration: .05s; }
+button:disabled { cursor: not-allowed; }
+.fx-click-ripple { position: fixed; border-radius: 50%; transform: translate(-50%, -50%) scale(0); background: radial-gradient(circle, #c9f31d66 0, #c9f31d22 45%, transparent 70%); animation: click-ripple .5s ease-out forwards; }
+@keyframes click-ripple { to { transform: translate(-50%, -50%) scale(1); opacity: 0; } }
+
+/* ---------- top bar ---------- */
+.topbar { min-height: 76px; height: auto; flex-wrap: wrap; row-gap: 8px; padding-block: 10px; background: linear-gradient(#1a1e1a, #131613); }
+.brand p { font-size: 11px; color: var(--text-faint); }
+.mission-select { font-size: 15px; padding: 10px 34px 10px 12px; color: #ffb066; }
+.mission-strip { font-size: 15px; color: var(--text-dim); }
+.mission-strip strong { color: var(--text); }
+.top-actions { align-items: center; flex-wrap: wrap; }
+.nav-button, .account-chip, .undo-button { font-size: 14px; }
+.undo-button { font-size: 12px; }
+.audio-controls label { font-size: 10px; color: var(--text-dim); width: 96px; }
+
+/* ---------- board ---------- */
+.board-panel { padding-top: 18px; }
+.phase-ribbon { height: 44px; font-size: 14px; color: var(--text-dim); background: linear-gradient(90deg, #272d25, #1d221d); border-radius: 0 var(--radius) var(--radius) 0; }
+.phase-ribbon strong { font-size: 16px; }
+.phase-ribbon.player strong { color: var(--acid); }
+.mini-die { width: 26px; height: 26px; font-size: 14px; }
+.mission-banner { gap: 28px; border-radius: var(--radius); }
+.mission-banner small { font-size: 12px; color: var(--text-faint); }
+.mission-banner h2 { font-size: 30px; }
+.mission-banner p { font-size: 15px; color: #c6cdc2; line-height: 1.55; }
+.theme-brief { font-size: 13px; color: var(--text-dim); }
+.mission-progress strong { font-size: 38px; }
+.mission-progress small { font-size: 13px; color: var(--text-dim); }
+
+.zone { padding: 12px; border-color: #b4baa790; border-radius: 3px; }
+.zone-head { font-size: 12px; color: #c3cabe; letter-spacing: .5px; text-shadow: 0 1px 3px #000; }
+.spawn-label, .exit-label { font-size: 11px; padding: 3px 7px; border-radius: 2px; }
+.zone h2 { display: inline-block; max-width: 100%; margin: 6px 0 10px; padding: 3px 9px; font-size: 16px; font-weight: 700; color: #fff; background: #0a0d0acc; border-left: 3px solid var(--acid); border-radius: 2px; text-shadow: 0 1px 2px #000; backdrop-filter: blur(2px); }
+.zone.building h2 { border-left-color: var(--orange); }
+.zone.active-zone { box-shadow: inset 0 0 0 2px var(--acid), 0 0 22px #c9f31d38; background-color: #2a3322aa; }
+.zone.can-move { border-color: #9fc21a; border-width: 2px; }
+.zone.can-attack { border-color: #ee5a47; border-width: 2px; }
+.zone.can-move:hover { transform: translateY(-3px); box-shadow: inset 0 0 28px #c9f31d28, 0 8px 18px #0008; }
+.zone.can-move:active { transform: scale(.985); transition-duration: .06s; }
+.zone-hint { font-size: 12px; font-weight: 700; padding: 4px 9px; color: #17200f; background: #c9f31dee; border-radius: 3px; text-shadow: none; }
+.door-button, .attack-button, .vehicle-button { font-size: 13px; font-weight: 700; padding: 7px 12px; border-radius: 3px; }
+.attack-button { background: #b3392b; box-shadow: 0 0 12px #e5423066; animation: attack-pulse 1.2s ease-in-out var(--clock, 0s) infinite; }
+@keyframes attack-pulse { 50% { box-shadow: 0 0 20px #ff5a3caa; transform: scale(1.05); } }
+.survivor-token small { width: 20px; height: 20px; font-size: 12px; right: -6px; bottom: -6px; border: 1px solid #ffffff55; background: #1a201a; }
+.noise-token { font-size: 12px; padding: 4px 8px; border-radius: 3px; }
+.legend { font-size: 13px; color: var(--text-dim); gap: 10px 22px; padding-top: 16px; }
+.dot { width: 11px; height: 11px; }
+
+/* ---------- control panel cards ---------- */
+.control-panel { gap: 16px; }
+.survivor-card, .action-card, .log-card, .dice-card, .codex-card { border-radius: var(--radius); background: var(--card); border-color: var(--edge); }
+.section-title { font-size: 15px; padding-bottom: 12px; color: var(--text); }
+.section-title small { font-size: 13px; color: var(--text-dim); }
+
+.survivor-tab { font-size: 13px; color: var(--text-dim); font-weight: 600; transition: background-color .2s, color .2s; }
+.survivor-tab small { font-size: 11px; }
+.survivor-tab.active { box-shadow: inset 0 -3px var(--acid); }
+.survivor-info p { font-size: 11px; }
+.survivor-info h2 { font-size: 26px; }
+.stats { font-size: 11px; color: var(--text-dim); gap: 20px; }
+.stats b { font-size: 17px; }
+.heart { font-size: 17px; display: inline-block; }
+.heart-lose { animation: heart-lose .7s ease-out; }
+.heart-gain { animation: heart-gain .7s var(--ease-press); }
+@keyframes heart-lose { 0% { transform: scale(1.8); color: #ff3b2f; } 40% { transform: scale(.7) rotate(-20deg); } 100% { transform: none; } }
+@keyframes heart-gain { 0% { transform: scale(.3); color: #4dff8a; } 60% { transform: scale(1.6); } 100% { transform: none; } }
+.skill-text { font-size: 13px !important; color: #d4dbc6 !important; }
+.adrenaline-tiers div { font-size: 12px; color: var(--text-dim); grid-template-columns: 30px 1fr; }
+.adrenaline-tiers b { font-size: 12px; min-height: 26px; }
+.action-points small { font-size: 11px; color: var(--text-dim); }
+.action-points strong { font-size: 46px; transition: color .3s; }
+.action-points strong.fx-pop { color: #fff; }
+
+.primary-actions { gap: 9px; }
+.primary-actions button { min-height: 104px; padding: 11px; border-radius: var(--radius); background: var(--card-2); border-color: var(--edge); }
+.primary-actions button:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 8px 16px #0007, 0 0 0 1px var(--acid); }
+.primary-actions button:active:not(:disabled) { transform: translateY(0) scale(.94); }
+.primary-actions i { font-size: 26px; }
+.primary-actions span { font-size: 14px; line-height: 1.3; }
+.primary-actions small { font-size: 12px; margin-top: 4px; color: var(--text-dim); }
+.primary-actions b { width: 22px; height: 22px; font-size: 12px; border-radius: 50%; }
+.primary-actions button:disabled { opacity: .38; }
+
+.inventory-title { font-size: 15px; }
+.weapon { min-height: 82px; padding: 8px; border-radius: var(--radius); color: var(--text); transition: transform .15s var(--ease-press), border-color .2s, background-color .2s, box-shadow .2s; }
+.weapon:not(:disabled):hover { transform: translateX(3px); border-color: #7a8573; }
+.weapon.selected { border-color: var(--orange); background: linear-gradient(90deg, #3d3226, #2c2823); box-shadow: inset 4px 0 var(--orange), 0 0 14px #ff6b1a22; }
+.weapon-icon { font-size: 28px; color: var(--text-dim); }
+.weapon.selected .weapon-icon { color: var(--orange); }
+.weapon strong { font-size: 16px; color: #fff; }
+.weapon small { font-size: 12px; color: var(--text-dim); }
+.weapon em { font-size: 12px; color: var(--text-faint); }
+.weapon > b { font-size: 12px; }
+.discard-button { width: 38px; font-size: 18px; border-radius: var(--radius); }
+.use-item-button { font-size: 13px; border-radius: var(--radius); }
+.combat-help { font-size: 13px; color: var(--text-dim); margin: 10px 0 14px; }
+.trade-row { font-size: 13px; border-radius: var(--radius); }
+.trade-row button { font-size: 13px; padding: 7px 12px; }
+.end-turn { padding: 15px 18px; font-size: 16px; border-radius: var(--radius); box-shadow: 0 4px 0 #6e8710; }
+.end-turn:not(:disabled):hover { transform: translateY(-2px); box-shadow: 0 6px 0 #6e8710, 0 0 18px #c9f31d44; }
+.end-turn:not(:disabled):active { transform: translateY(3px) scale(.99); box-shadow: 0 1px 0 #6e8710; }
+.end-turn:disabled { box-shadow: none; }
+
+.log-card li { font-size: 14px; color: #a7b0a3; padding: 10px 0; }
+.log-card li.latest { color: #fff; background: linear-gradient(90deg, #c9f31d14, transparent); padding-left: 6px; border-left: 3px solid var(--acid); }
+.log-card time { font-size: 12px; }
+.dice-empty { font-size: 14px; color: var(--text-dim); }
+.codex-card summary { font-size: 16px; }
+.codex-content article b { font-size: 14px; } .codex-content article p { font-size: 13px; color: var(--text-dim); } .codex-content article small { font-size: 12px; }
+
+/* ---------- toasts (event feed on the board) ---------- */
+.fx-toasts { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); display: grid; gap: 8px; justify-items: center; width: min(560px, calc(100vw - 32px)); }
+.fx-toast { padding: 11px 18px; color: #f4f6ee; font-size: 15px; font-weight: 600; line-height: 1.4; text-align: center; background: #12160fee; border: 1px solid #55604d; border-left: 4px solid var(--acid); border-radius: var(--radius); box-shadow: 0 8px 24px #000a; backdrop-filter: blur(6px); animation: toast-in .35s var(--ease-press) both; }
+.fx-toast.danger { border-left-color: var(--red); } .fx-toast.good { border-left-color: #4dff8a; }
+.fx-toast.leaving { animation: toast-out .3s ease-in forwards; }
+@keyframes toast-in { from { opacity: 0; transform: translateY(22px) scale(.9); } }
+@keyframes toast-out { to { opacity: 0; transform: translateY(-10px) scale(.96); } }
+
+/* ---------- modals ---------- */
+.tutorial-grid p, .theme-intro-grid p { font-size: 14px; }
+.tutorial-grid b { font-size: 16px; }
+.tutorial-modal > button, .result-modal button, .primary-wide { font-size: 16px; border-radius: var(--radius); transition: transform .14s var(--ease-press), filter .15s; }
+.result-modal p { font-size: 15px; color: var(--text-dim); }
+.result-modal h2 { font-size: 44px; }
+
+/* ---------- accessibility ---------- */
+:focus-visible { outline: 3px solid var(--acid); outline-offset: 2px; }
+@media (max-width: 640px) {
+  .zone h2 { font-size: 12px; padding: 2px 6px; } .zone-head { font-size: 10px; }
+  .fx-toasts { bottom: 12px; } .fx-toast { font-size: 14px; }
+  .mission-banner h2 { font-size: 24px; }
+}
+@media (prefers-reduced-motion: reduce) { .fx-click-ripple { display: none; } button:active { transform: none; } }
