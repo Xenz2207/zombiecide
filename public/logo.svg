@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Dead Zone Protocol">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="75%">
+      <stop offset="0" stop-color="#3a5121"/><stop offset=".55" stop-color="#18200f"/><stop offset="1" stop-color="#080b07"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#c9f31d" stop-opacity=".5"/><stop offset="1" stop-color="#c9f31d" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b4d473"/><stop offset=".6" stop-color="#8aab4a"/><stop offset="1" stop-color="#5f7c33"/>
+    </linearGradient>
+    <linearGradient id="wood" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8a5a28"/><stop offset=".5" stop-color="#d09a52"/><stop offset="1" stop-color="#7a4d20"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8d969c"/><stop offset=".45" stop-color="#e6edf0"/><stop offset="1" stop-color="#6c767c"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <circle cx="256" cy="248" r="232" fill="url(#glow)"/>
+  <!-- hazard stripes in the corners -->
+  <g opacity=".16" fill="#c9f31d">
+    <path d="M0 0h110L0 110z"/><path d="M402 0h110v110z"/><path d="M0 402l110 110H0z"/><path d="M512 402v110H402z"/>
+  </g>
+  <!-- target reticle -->
+  <g fill="none" stroke="#c9f31d" stroke-width="7" stroke-linecap="round" opacity=".9">
+    <circle cx="256" cy="256" r="214" stroke-dasharray="26 14" opacity=".55"/>
+    <path d="M256 14v36M256 462v36M14 256h36M462 256h36"/>
+  </g>
+
+  <!-- machete (behind) -->
+  <g transform="rotate(42 256 256)">
+    <path d="M232 22c34-8 62 6 62 44l-6 262h-54z" fill="url(#steel)" stroke="#10140d" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M250 40c14-3 22 4 22 20l-4 250" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="5" stroke-linecap="round"/>
+    <rect x="218" y="326" width="84" height="20" rx="6" fill="#3b2a18" stroke="#10140d" stroke-width="8"/>
+    <rect x="236" y="344" width="48" height="128" rx="14" fill="#2c3a1c" stroke="#10140d" stroke-width="9"/>
+    <path d="M238 372h44M238 396h44M238 420h44M238 444h44" stroke="#10140d" stroke-width="6" opacity=".7"/>
+  </g>
+
+  <!-- nail bat (behind) -->
+  <g transform="rotate(-42 256 256)">
+    <path d="M238 478V318c0-70-22-150-18-226 3-60 72-60 76 0 4 76-18 156-18 226v160c0 12-40 12-40 0z" fill="url(#wood)" stroke="#10140d" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M232 70c-4 60 10 130 14 200" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="7" stroke-linecap="round"/>
+    <rect x="232" y="318" width="48" height="16" rx="5" fill="#2b1c0e" opacity=".55"/>
+    <g fill="#c9d1d4" stroke="#10140d" stroke-width="4" stroke-linejoin="round">
+      <path d="M214 120l-24-6 24-6z"/><path d="M298 150l24-6-24-6z"/><path d="M216 190l-24-6 24-6z"/><path d="M296 230l24-6-24-6z"/>
+    </g>
+  </g>
+
+  <!-- zombie head -->
+  <g stroke-linejoin="round" stroke-linecap="round">
+    <path d="M256 104c-78 0-122 62-116 134 3 40 20 70 40 94 12 14 20 30 22 48h108c2-18 10-34 22-48 20-24 37-54 40-94 6-72-38-134-116-134z" fill="url(#skin)" stroke="#10140d" stroke-width="12"/>
+    <!-- exposed skull / brain patch -->
+    <path d="M196 124c24-16 58-18 84-4 10 6 6 20-6 22-18 2-26 12-44 10-20-2-40 2-44-12-2-8 2-12 10-16z" fill="#c98b93" stroke="#10140d" stroke-width="7"/>
+    <path d="M208 132c10 8 20-2 30 6M240 128c8 8 18 0 26 6" fill="none" stroke="#8a4a55" stroke-width="5"/>
+    <!-- forehead stitches -->
+    <path d="M300 128l40 40" stroke="#10140d" stroke-width="6" fill="none"/>
+    <path d="M304 150l-12 10M318 150l-12 12M328 160l-12 12M338 170l-8 8" stroke="#10140d" stroke-width="5" fill="none"/>
+    <!-- sunken eyes + glow -->
+    <ellipse cx="208" cy="236" rx="38" ry="32" fill="#10140d"/>
+    <ellipse cx="308" cy="228" rx="34" ry="30" fill="#10140d"/>
+    <circle cx="210" cy="240" r="20" fill="#d9ff3a"/><circle cx="210" cy="240" r="8" fill="#10140d"/>
+    <circle cx="308" cy="232" r="17" fill="#d9ff3a"/><circle cx="310" cy="234" r="6" fill="#10140d"/>
+    <circle cx="203" cy="232" r="5" fill="#fff" opacity=".85"/><circle cx="302" cy="226" r="4" fill="#fff" opacity=".85"/>
+    <!-- angry brows -->
+    <path d="M168 200l82 26M350 190l-72 32" stroke="#10140d" stroke-width="12" fill="none"/>
+    <!-- missing nose -->
+    <path d="M242 270l14 22 14-22" fill="#10140d" stroke="#10140d" stroke-width="5"/>
+    <!-- open jaw with teeth -->
+    <path d="M186 318c20-14 50-18 70-18s50 4 70 18c-4 40-22 66-70 66s-66-26-70-66z" fill="#10140d" stroke="#10140d" stroke-width="8"/>
+    <path d="M196 322l12 22 14-22 12 24 14-24 14 24 14-24 12 22 14-22 12 22" fill="#f3efd8" stroke="#10140d" stroke-width="5"/>
+    <path d="M204 372l12-18 14 20 14-20 14 20 14-20 12 18" fill="#f3efd8" stroke="#10140d" stroke-width="5"/>
+    <!-- blood -->
+    <path d="M214 372c-2 22 2 40 8 50 6-10 8-30 6-50z" fill="#c0261b" stroke="#10140d" stroke-width="5"/>
+    <path d="M286 372c0 14-2 30 4 40 6-10 6-24 4-40z" fill="#c0261b" stroke="#10140d" stroke-width="5"/>
+    <path d="M168 262c6 18 4 34 10 44-8 4-14-14-16-30z" fill="#c0261b" opacity=".9"/>
+    <!-- cheek scar + shading -->
+    <path d="M162 292l34 16M168 308l28 10" stroke="#10140d" stroke-width="5" fill="none"/>
+  </g>
+  <g fill="#c0261b" opacity=".92">
+    <circle cx="92" cy="128" r="9"/><circle cx="118" cy="104" r="5"/><circle cx="420" cy="396" r="10"/><circle cx="446" cy="372" r="5"/><circle cx="392" cy="430" r="6"/>
+  </g>
+</svg>

@@ -164,7 +164,7 @@ function render(): void {
   app.innerHTML = `
     <header class="topbar">
       <div class="brand">
-        <div class="brand-mark">DZ</div>
+        <img class="brand-logo" src="/logo.svg" alt="Dead Zone Protocol" width="56" height="56" />
         <div><p>OPERATION</p><h1>DEAD ZONE <span>PROTOCOL</span></h1></div>
       </div>
       <div class="mission-strip">
